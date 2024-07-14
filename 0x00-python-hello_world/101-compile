@@ -1,3 +1,15 @@
 #!/bin/bash
 
-python3 -m compileall -b $PYFILE 
+if [ -z "$PYFILE" ]; then
+	echo "PYFILE environment variable not set."
+	exit 1
+fi
+
+python3 -m compileall -b "$PYFILE"
+
+compiled_file="${PYFILE}c"
+mv "__pycache__/${pyfile}__pycache__/$compiled_file" .
+
+rm -rf "__pycache__"
+
+echo "compiling $PYFILE ......"
